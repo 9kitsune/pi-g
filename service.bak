@@ -1,0 +1,59 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Feb 17 16:15:42 2018
+
+@author: k0olu
+"""
+"""
+auto start up service to initiate logger
+and a place for the logger to exit back to, to start logger again.
+"""
+
+from sense_hat import SenseHat
+from time import sleep
+import datetime
+
+sense = SenseHat()
+green = (0, 255, 0)
+    
+def pressed(event):
+    print('start logging')
+    sense.show_message('logging...')
+    exec(open('sense_logger.py').read())
+    
+#def held(event):
+#    print('exiting')
+#    sense.show_message('bye')
+#    sleep(1)
+#    exit()
+    
+
+if __name__ == '__main__':
+    sense.clear()
+    sense.show_message('Ready')
+    sleep(1)
+    sense.set_pixel(0, 0, green)
+    
+# tell the program which function is associate to which joystick action.
+#sense.stick.direction_middle = pressed
+    sense.stick.direction_middle = pressed
+#    sense.stick.direction_down = held
+
+
+
+"""
+for event in sense.stick.get_events():
+    if (event.action == "pressed" & event.direction == "middle"):
+        print('start logging')
+        sense.show_message('start logging')
+        exec(open('sense_logger.py').read())
+
+    if event.action == "held":
+        print('script end')
+        sense.show_message('bye')
+        sleep(1)
+        exit()
+"""
+while True:
+    pass
+#this keeps the program running to receive joystick action
